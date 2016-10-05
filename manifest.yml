@@ -2,4 +2,4 @@
 applications:
 - name: sewa-sonali-hw5
   path: ./build/libs/image-gallery-0.1.0.jar
-buildpack: https://github.com/cloudfoundry/java-buildpack.git
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git
