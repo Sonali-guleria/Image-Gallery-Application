@@ -2,4 +2,13 @@ language: java
 jdk:
 - oraclejdk8
 edge: true
-
+deploy:
+  provider: cloudfoundry
+  api: https://api.run.pivotal.io
+  username: sguleria@andrew.cmu.edu
+  password:
+    secure: DHRXnhyUqPxj1i8J9LtNwNsFndF2nofzMKdesFowSqLGkdXZ12G/KK89pD8ZjMmrvpnwN9rpls0DW7DnpY85PIE4NWDe0jl/Euz7Rzh6FrPcgtdbJMeThvtLbnb6ANrKKGxkZ+ZOa7TC8R5EkE0IfV/VujDuPRw+arZFIMTC/iYFz1aVepLoK84+hneD9e84pS7O4NpkC1IqNYQJUhCSjtgyuWhUlzZagucCX0hznHhiPGDbx09tghVIADU4lM6Ocxrmcs3tfkZaA6wGhpHXgiHK1Ul2yE9vbuACn4twpiZofdUgFcbxSTeUeH5HjJEMQpJZpZPbwbx2NZpec/cn3wY9HCKzmUoHmnrn8CTuijkZSsV54zyCAaorrE9vCkwtBL8pCT+fj7ZPKEV8MxnvpdP9zB5XGjhSsoXJhzwTket26BfqixsmrN4nWd6JooFU57DhMxZQbZQFX5OC7SZMH81JTHuPj5ii5ZwFp6a1d9DDr3kZL7FD3JXwjt1F4XtelOAdMIuVCj5vsKnyBikfMtWKPEwa/EbOuFJ3gBlUrHMZvPlSQceftcDuuAuMY3cv0T2Q2Q7aweayBF7UxHtfp2cVkOLnggXo62znecPLhQyKkswDJuO+pBok4hvqLCn/Mw4DjWVmfXp8L9+aZ3wen7hgJxvOP+qEJIYhfIAIgz8=
+  organization: CMU-Cloud-Business
+  space: development
+  on:
+    repo: Sonali-guleria/Image-Gallery-Application
