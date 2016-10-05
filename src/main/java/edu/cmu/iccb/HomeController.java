@@ -5,7 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import java.security.Principal;
+import java.util.Arrays;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,23 +22,22 @@ import edu.cmu.iccb.services.ImageService;
 
 @Controller
 public class HomeController {
-	
+    
     private ImageService imageService;
     
     @Autowired
-	public void setImageService(ImageService imageService) {
-		this.imageService = imageService;
-	}
+    public void setImageService(ImageService imageService) {
+        this.imageService = imageService;
+    }
 
     public ImageService getImageService() {
-		return imageService;
-	}
+        return imageService;
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/images")
     public String provideUploadInfo(Model model, RedirectAttributes redirectAttributes) {
-
-        List<String> imageIds = imageService.getUploadedImages();        
-        model.addAttribute("files", imageIds);     
+      List<String> imageIds = imageService.getUploadedImages();        
+      model.addAttribute("files", imageIds);     
         return "uploadForm";
     }
 
@@ -42,8 +47,8 @@ public class HomeController {
 
         String name = file.getOriginalFilename();
 
-        try {        	
-        	imageService.saveImage(name, file.getInputStream());           
+        try {           
+            imageService.saveImage(name, file.getInputStream());           
         }
         catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", name + " failed to upload");
@@ -52,9 +57,35 @@ public class HomeController {
         return "redirect:/images";
     }
 
+   public String homePage() {      
+    return "loginForm";
+     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public String loginForm(Model model, RedirectAttributes redirectAttributes) {   
         return "login";
     }
+
+
+ @RequestMapping(method = RequestMethod.GET, value = "/github/success")
+public String getLogin(RedirectAttributes redirectAttributes,
+                          @CookieValue(value = "JSESSIONID") String accessToken) {
+  
+    PreAuthenticatedAuthenticationToken auth = 
+             new PreAuthenticatedAuthenticationToken("github", accessToken, Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
+         
+      SecurityContextHolder.getContext().setAuthentication(auth);
+          
+      return "redirect:/images";
+  }
+  
+@RequestMapping(method = RequestMethod.POST, value = "/github/login")
+public String postLogin(RedirectAttributes redirectAttributes) {
+return "redirect:/images";
 }
+
+
+    
+}
+
+

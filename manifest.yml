@@ -1,4 +1,4 @@
 ---
 applications:
-- name: image-gallery-0.1.0
+- name: sewa-sonali-hw3
   path: ./build/libs
