@@ -1,4 +1,4 @@
 ---
 applications:
-- name: sewa-sonali-hw5
+- name: sewa-sonali-hw3
   path: ./build/libs
